@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ ticket.title }} - School Ticket System</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎓 School Ticket System</h1>
+        </div>
+    </header>
+    
+    <div class="container">
+        <nav>
+            <a href="{% url 'frontend' %}">🏠 Dashboard</a> |
+            <a href="{% url 'create_ticket' %}">➕ Create Ticket</a> |
+            <a href="{% url 'my_tickets' %}">📋 My Tickets</a> |
+            <span style="color: #666;">👤 {{ user.username }}</span> |
+            <a href="{% url 'logout' %}">🚪 Logout</a>
+        </nav>
+        
+        <div class="card">
+            <h2>🎫 {{ ticket.title }}</h2>
+            <div class="ticket-meta">
+                <strong>Status:</strong> <span class="status-{{ ticket.status }}">{{ ticket.status|title }}</span><br>
+                <strong>Class:</strong> {{ ticket.class_name }}<br>
+                <strong>Date:</strong> {{ ticket.created_at|date:"M d, Y g:i A" }}
+            </div>
+            
+            <div style="margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 5px;">
+                <p>{{ ticket.description }}</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>💬 Admin Responses</h3>
+            
+            {% if comments %}
+                {% for comment in comments %}
+                    <div class="comment-box">
+                        <strong>{{ comment.user.username }}</strong> 
+                        <small style="color: #666;">({{ comment.created_at|date:"M d, Y g:i A" }})</small>
+                        <p style="margin-top: 10px;">{{ comment.text }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p style="color: #666; text-align: center; padding: 20px;">No responses yet from administration.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

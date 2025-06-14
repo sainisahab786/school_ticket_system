@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Ticket System</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎓 School Ticket System</h1>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="card">
+            <h2>Welcome to School Ticket System</h2>
+            <p>A platform for teachers to report issues and track their resolution by school administration.</p>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="{% url 'login' %}" class="btn btn-success" style="font-size: 18px; padding: 15px 30px; margin: 10px;">
+                    🔐 Teacher Login
+                </a>
+                <a href="{% url 'register' %}" class="btn" style="font-size: 18px; padding: 15px 30px; margin: 10px;">
+                    📝 Register as Teacher
+                </a>
+            </div>
+            
+            <div style="margin-top: 40px;">
+                <h3>How it works:</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin: 10px 0;">✅ Teachers log in with their credentials</li>
+                    <li style="margin: 10px 0;">✅ Create tickets for classroom or technical issues</li>
+                    <li style="margin: 10px 0;">✅ Track ticket status and view admin responses</li>
+                    <li style="margin: 10px 0;">✅ Principals manage tickets through admin panel</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+</html>

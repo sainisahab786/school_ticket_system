@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Ticket - School Ticket System</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎓 School Ticket System</h1>
+        </div>
+    </header>
+    
+    <div class="container">
+        <nav>
+            <a href="{% url 'frontend' %}">🏠 Dashboard</a> |
+            <a href="{% url 'create_ticket' %}">➕ Create Ticket</a> |
+            <a href="{% url 'my_tickets' %}">📋 My Tickets</a> |
+            <span style="color: #666;">👤 {{ user.username }}</span> |
+            <a href="{% url 'logout' %}">🚪 Logout</a>
+        </nav>
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div style="background: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <div class="card">
+            <h2>📝 Create New Ticket</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" placeholder="Brief description of the issue" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" placeholder="Provide detailed information about the problem..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="class_name">Class: <span style="color: red;">*</span></label>
+                    <select id="class_name" name="class_name" required>
+                        <option value="">Select a class...</option>
+                        <option value="Nursery A">Nursery A</option>
+                        <option value="Nursery B">Nursery B</option>
+                        <option value="Nursery C">Nursery C</option>
+                        <option value="LKG A">LKG A</option>
+                        <option value="LKG B">LKG B</option>
+                        <option value="LKG C">LKG C</option>
+                        <option value="UKG A">UKG A</option>
+                        <option value="UKG B">UKG B</option>
+                        <option value="UKG C">UKG C</option>
+                        <option value="Class 1 A">Class 1 A</option>
+                        <option value="Class 1 B">Class 1 B</option>
+                        <option value="Class 1 C">Class 1 C</option>
+                        <option value="Class 2 A">Class 2 A</option>
+                        <option value="Class 2 B">Class 2 B</option>
+                        <option value="Class 2 C">Class 2 C</option>
+                        <option value="Class 3 A">Class 3 A</option>
+                        <option value="Class 3 B">Class 3 B</option>
+                        <option value="Class 3 C">Class 3 C</option>
+                        <option value="Class 4 A">Class 4 A</option>
+                        <option value="Class 4 B">Class 4 B</option>
+                        <option value="Class 4 C">Class 4 C</option>
+                        <option value="Class 5 A">Class 5 A</option>
+                        <option value="Class 5 B">Class 5 B</option>
+                        <option value="Class 5 C">Class 5 C</option>
+                        <option value="Class 6 A">Class 6 A</option>
+                        <option value="Class 6 B">Class 6 B</option>
+                        <option value="Class 6 C">Class 6 C</option>
+                        <option value="Class 7 A">Class 7 A</option>
+                        <option value="Class 7 B">Class 7 B</option>
+                        <option value="Class 7 C">Class 7 C</option>
+                        <option value="Class 8 A">Class 8 A</option>
+                        <option value="Class 8 B">Class 8 B</option>
+                        <option value="Class 8 C">Class 8 C</option>
+                        <option value="Class 9 A">Class 9 A</option>
+                        <option value="Class 9 B">Class 9 B</option>
+                        <option value="Class 9 C">Class 9 C</option>
+                        <option value="Class 10 A">Class 10 A</option>
+                        <option value="Class 10 B">Class 10 B</option>
+                        <option value="Class 10 C">Class 10 C</option>
+                        <option value="Class 11 A">Class 11 A</option>
+                        <option value="Class 11 B">Class 11 B</option>
+                        <option value="Class 11 C">Class 11 C</option>
+                        <option value="Class 12 A">Class 12 A</option>
+                        <option value="Class 12 B">Class 12 B</option>
+                        <option value="Class 12 C">Class 12 C</option>
+                    </select>
+                    <small>Please select the class for which you are reporting this issue.</small>
+                </div>
+                
+                <button type="submit" class="btn btn-success">🎫 Submit Ticket</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

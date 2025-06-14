@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Panel - School Ticket System{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>⚙️ Admin Panel - All Tickets</h2>
+    
+    {% if tickets %}
+        <ul class="ticket-list">
+            {% for ticket in tickets %}
+                <li class="ticket-item">
+                    <a href="{% url 'ticket_detail' ticket.id %}">{{ ticket.title }}</a>
+                    <div class="ticket-meta">
+                        <span class="status-{{ ticket.status }}">● {{ ticket.status|title }}</span> | 
+                        {{ ticket.class_name }} | 
+                        Created by: {{ ticket.created_by.username }} | 
+                        {{ ticket.created_at|date:"M d, Y" }}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div style="text-align: center; padding: 40px;">
+            <p>📭 No tickets found.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

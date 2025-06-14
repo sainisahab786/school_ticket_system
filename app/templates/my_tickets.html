@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tickets - School Ticket System</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎓 School Ticket System</h1>
+        </div>
+    </header>
+    
+    <div class="container">
+        <nav>
+            <a href="{% url 'frontend' %}">🏠 Dashboard</a> |
+            <a href="{% url 'create_ticket' %}">➕ Create Ticket</a> |
+            <a href="{% url 'my_tickets' %}">📋 My Tickets</a> |
+            <span style="color: #666;">👤 {{ user.username }}</span> |
+            <a href="{% url 'logout' %}">🚪 Logout</a>
+        </nav>
+        
+        <div class="card">
+            <h2>📋 My Tickets</h2>
+            
+            {% if tickets %}
+                {% for ticket in tickets %}
+                    <div class="ticket-item">
+                        <div>
+                            <a href="{% url 'ticket_detail' ticket.id %}">{{ ticket.title }}</a>
+                            <div class="ticket-meta">
+                                <span class="status-{{ ticket.status }}">● {{ ticket.status|title }}</span> | 
+                                {{ ticket.class_name }} | 
+                                Created: {{ ticket.created_at|date:"M d, Y" }}
+                            </div>
+                        </div>
+                        
+                        {% if ticket.comments.all %}
+                            <div style="margin-top: 15px;">
+                                <h4 style="color: #667eea; margin-bottom: 10px;">💬 Admin Responses:</h4>
+                                {% for comment in ticket.comments.all %}
+                                    <div class="comment-box" style="margin: 8px 0;">
+                                        <strong>{{ comment.user.username }}</strong> 
+                                        <small style="color: #666;">({{ comment.created_at|date:"M d, Y g:i A" }})</small>
+                                        <p style="margin-top: 8px;">{{ comment.text }}</p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div style="margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 5px; color: #666;">
+                                No admin responses yet.
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div style="text-align: center; padding: 40px;">
+                    <p>📭 No tickets found. <a href="{% url 'create_ticket' %}" class="btn">Create your first ticket</a></p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
