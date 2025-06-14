@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import os
 import sys
+from django.core.wsgi import get_wsgi_application
 
 def main():
     """Run administrative tasks."""
@@ -17,16 +18,18 @@ def main():
     
     execute_from_command_line(sys.argv)
 
-# For Vercel deployment: expose the WSGI app as 'app' and 'handler'
+# For Vercel deployment, expose the WSGI app callable as 'app' and 'handler'
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'school.settings')
 
 try:
-    from django.core.wsgi import get_wsgi_application
+    # Create the WSGI application callable for Vercel
     app = get_wsgi_application()
     handler = app
-except Exception:
+except Exception as e:
+    # Handle the case where WSGI application creation fails
     app = None
     handler = None
+    print(f"Error: {e}")
 
 if __name__ == "__main__":
     main()
